@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS progress (concept TEXT PRIMARY KEY, status TEXT NOT NULL CHECK(status IN ('mastered','weakness','learning')), note TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS feedback_log (id INTEGER PRIMARY KEY, concept TEXT NOT NULL, rating INTEGER NOT NULL CHECK(rating IN (-1,1)), note TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS projects (name TEXT PRIMARY KEY, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+INSERT OR IGNORE INTO projects(name) VALUES('Allgemein');
+CREATE TABLE IF NOT EXISTS project_progress (project TEXT NOT NULL, concept TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('mastered','weakness','learning')), note TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(project,concept), FOREIGN KEY(project) REFERENCES projects(name));
+CREATE TABLE IF NOT EXISTS project_feedback (id INTEGER PRIMARY KEY, project TEXT NOT NULL, concept TEXT NOT NULL, rating INTEGER NOT NULL CHECK(rating IN (-1,1)), note TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(project) REFERENCES projects(name));
+CREATE TABLE IF NOT EXISTS progress_history (id INTEGER PRIMARY KEY, project TEXT NOT NULL, total INTEGER NOT NULL, mastered INTEGER NOT NULL, recorded_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(project) REFERENCES projects(name));
+CREATE TABLE IF NOT EXISTS schema_migrations (name TEXT PRIMARY KEY);
+INSERT OR IGNORE INTO project_progress(project,concept,status,note,updated_at) SELECT 'Allgemein',concept,status,note,updated_at FROM progress WHERE NOT EXISTS (SELECT 1 FROM schema_migrations WHERE name='project_progress_v1');
+INSERT OR IGNORE INTO schema_migrations(name) VALUES('project_progress_v1');
