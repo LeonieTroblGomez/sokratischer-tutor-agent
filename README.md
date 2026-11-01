@@ -2,7 +2,34 @@
 
 Ein eigenständiges Lernprojekt nach der [Trinity-Architekturreferenz](https://profengel.github.io/KI-Literacy/trinity-agenten.html): Rollenregeln, Projektkonventionen, Ablauf, Ausgabeschema, deterministische Werkzeuge und lokales SQLite-Gedächtnis sind getrennt. Der Tutor hilft mit Fragen und Hinweisen statt sofortiger Musterlösungen.
 
-## Einblicke
+## Was macht der Tutor?
+
+Der Tutor unterstützt beim Verstehen von Vorlesungsstoff und bei der Klausurvorbereitung. Du kannst für jedes Fach einen eigenen Lernbereich anlegen, ein Skript hochladen und anschließend eine Frage stellen. Statt bei einer Übungsaufgabe sofort eine vollständige Musterlösung zu verraten, erklärt der Tutor die Grundlagen und begleitet dich mit Hinweisen und Rückfragen zum eigenen Ergebnis.
+
+**Ein typischer Ablauf:**
+
+1. Ein Fach auswählen, zum Beispiel „Marketing“ oder „Controlling“.
+2. Optional ein Skript als `.txt`, `.md` oder `.json` hochladen.
+3. Eine Frage eingeben, zum Beispiel: „Was bedeutet Deckungsbeitrag?“
+4. Eine Erklärung in der gewünschten Stufe erhalten: **Einfach**, **Normal** oder **Fachlich**.
+5. Mit „Noch nicht verstanden“ nachfragen oder nach „Verstanden“ eine Reflexionsaufgabe erstellen lassen.
+6. Themen als „In Arbeit“, „Gemeistert“ oder „Noch unsicher“ festhalten und den Fortschritt im jeweiligen Fach ansehen.
+
+Der Tutor kann auch ohne eigenes Skript verwendet werden. Dann sind seine Aussagen nicht durch deine Vorlesungsunterlagen belegt. Bei einem hochgeladenen Skript werden passende Textabschnitte ausgewählt und ein angegebenes Zitat auf Übereinstimmung geprüft.
+
+## Funktionen im Überblick
+
+| Bereich | Funktion |
+| --- | --- |
+| **Lernbereiche** | Fächer getrennt anlegen und ihren jeweiligen Lernstand verwalten. |
+| **Unterlagen** | Textdateien, Markdown und JSON als Lernmaterial hochladen. |
+| **Erklärungen** | Zwischen einfacher, normaler und fachlicher Erklärung wechseln und vertiefend nachfragen. |
+| **Üben** | Nach der Erklärung eine Reflexionsaufgabe anfordern. |
+| **Fortschritt** | Themen und Einschätzungen lokal speichern; den Lernstand grafisch darstellen. |
+| **Modelle** | Codex, Ollama, LM Studio, OpenAI API oder Google Gemini auswählen. Ein vorbereiteter Übungsmodus steht ohne Modell zur Verfügung. |
+| **Einstellungen** | Modellwahl, Dark Mode, Memory-Ansicht und Trinity-Dateien über das Zahnrad öffnen. |
+
+## So sieht der Tutor aus
 
 Die Lernansicht verbindet optionale Unterlagen, Fragen in drei Erklärstufen und einen fachbezogenen Lernstand:
 
@@ -15,6 +42,15 @@ Modellauswahl, Dark Mode, Memory-Grafik und die Trinity-Dateien sind über die E
 ## Start auf dem eigenen Computer
 
 Python 3.9 oder neuer genügt; zusätzliche Pakete sind nicht erforderlich.
+
+Das Repository zuerst herunterladen oder klonen und im Terminal in den Projektordner wechseln:
+
+```sh
+git clone https://github.com/LeonieTroblGomez/sokratischer-tutor-agent.git
+cd sokratischer-tutor-agent
+```
+
+Danach den Tutor starten:
 
 ```sh
 python3 server.py
@@ -47,6 +83,23 @@ Die lokale Bridge wählt anhand gemeinsamer Wörter Skriptabschnitte aus; sie is
 Beim Start über die Bridge werden explizit gespeicherte Lernstände und Bewertungen nach Projekt getrennt in `memory/memory.db` abgelegt – auch wenn der vorbereitete Übungsdialog ausgewählt ist. Die Memory-Grafik gruppiert deine gespeicherten Themen nach Status; sie behauptet keine Beziehungen zwischen Themen. Die Datei wird bei Bedarf automatisch erzeugt und ist durch `.gitignore` vom Repository ausgeschlossen. Skripte, Chatverlauf und Schlüssel werden dort nicht gespeichert. Im statischen Modus ohne Bridge liegt der Lernstand separat im Browser; eine automatische Synchronisierung findet nicht statt. Browserdaten und lokale Datenbank können verloren gehen: selbst sichern, wenn benötigt.
 
 Das Zahnrad oben rechts öffnet die Einstellungen mit Modellauswahl, Dark Mode, Memory-Grafik und Trinity-Dateien. Der Entwicklungsverlauf erfasst Lernstandsänderungen ab Einführung dieser Funktion; ältere Änderungen lassen sich nicht rückwirkend rekonstruieren.
+
+## Wie ist das Projekt aufgebaut?
+
+Der Tutor folgt einem mehrteiligen Aufbau: Die Steuerdateien beschreiben, was er tun soll, während das Python-Programm die lokale Verarbeitung und Speicherung übernimmt.
+
+| Datei oder Ordner | Aufgabe |
+| --- | --- |
+| `index.html`, `enhancements.js` | Oberfläche und interaktive Bedienung. |
+| `manifest.json` | Name, Version und Metadaten des Tutors. |
+| `role.yaml`, `AGENTS.md` | Rolle, Grenzen und Arbeitsregeln des Lernbegleiters. |
+| `workflow.json` | Beschreibt den Ablauf von der Skriptsuche bis zur Rückmeldung. |
+| `output.schema.json` | Legt die Struktur einer Tutor-Antwort fest. |
+| `server.py`, `tutor_tools.py`, `cli.py` | Lokale Bridge, Skriptsuche, Quellenprüfung, Speicher und CLI-Hilfe. |
+| `memory/migrations/` | Datenbankschema für den lokalen Lernfortschritt. |
+| `tests/` | Tests für zentrale Funktionen. |
+
+Die README erklärt das Projekt und zeigt seine Oberfläche. **Der Tutor selbst läuft nach dem lokalen Start im Browser**; eine GitHub-README kann die App nicht direkt interaktiv ausführen.
 
 ## GitHub Pages / Demonstration
 
