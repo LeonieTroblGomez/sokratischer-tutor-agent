@@ -1,5 +1,9 @@
 # Sokratischer Vorlesungs- und Klausur-Tutor
 
+**[→ Sokratischen Tutor online öffnen](https://leonietroblgomez.github.io/sokratischer-tutor-agent/)**
+
+Die öffentlich nutzbare Online-Version funktioniert **ohne KI und ohne Anmeldung**. Sie bietet getrennte Fächer, eine lokale Stichwortsuche in hochgeladenen Skripten, Reflexionsfragen und einen Lernstand im Browser. Sie erzeugt keine individuellen KI-Erklärungen. Für die KI-Funktionen kann die lokale Version mit einem eigenen Modellzugang gestartet werden.
+
 Ein eigenständiges Lernprojekt nach der [Trinity-Architekturreferenz](https://profengel.github.io/KI-Literacy/trinity-agenten.html): Rollenregeln, Projektkonventionen, Ablauf, Ausgabeschema, deterministische Werkzeuge und lokales SQLite-Gedächtnis sind getrennt. Der Tutor hilft mit Fragen und Hinweisen statt sofortiger Musterlösungen.
 
 ## Was macht der Tutor?
@@ -26,7 +30,7 @@ Der Tutor kann auch ohne eigenes Skript verwendet werden. Dann sind seine Aussag
 | **Erklärungen** | Zwischen einfacher, normaler und fachlicher Erklärung wechseln und vertiefend nachfragen. |
 | **Üben** | Nach der Erklärung eine Reflexionsaufgabe anfordern. |
 | **Fortschritt** | Themen und Einschätzungen lokal speichern; den Lernstand grafisch darstellen. |
-| **Modelle** | Codex, Ollama, LM Studio, OpenAI API oder Google Gemini auswählen. Ein vorbereiteter Übungsmodus steht ohne Modell zur Verfügung. |
+| **Modelle** | In der lokalen Version Codex, Ollama, LM Studio, OpenAI API oder Google Gemini auswählen. Die Online-Lernhilfe funktioniert ohne Modell. |
 | **Einstellungen** | Modellwahl, Dark Mode, Memory-Ansicht und Trinity-Dateien über das Zahnrad öffnen. |
 
 ## So sieht der Tutor aus
@@ -80,7 +84,7 @@ Das Paket kann in Codex oder Antigravity eingefügt werden. Die CLI startet kein
 
 Die lokale Bridge wählt anhand gemeinsamer Wörter Skriptabschnitte aus; sie ist keine semantische Suche. Ohne Treffer gibt sie eine Rückfrage statt einer erfundenen Quelle zurück. Das Modell muss ein JSON mit Verständnischeck, Hinweis, Rückfrage und Quellenstatus liefern. Ein angebliches Zitat wird deterministisch auf exakte Übereinstimmung mit den übermittelten Auszügen geprüft. Dies garantiert weder die sachliche Richtigkeit der gesamten Antwort noch die Befolgung der sokratischen Regel: LLMs können irren, Inhalte falsch deuten oder trotz Vorgaben eine Lösung verraten. Prüfe Antworten am Originalskript.
 
-Beim Start über die Bridge werden explizit gespeicherte Lernstände und Bewertungen nach Projekt getrennt in `memory/memory.db` abgelegt – auch wenn der vorbereitete Übungsdialog ausgewählt ist. Die Memory-Grafik gruppiert deine gespeicherten Themen nach Status; sie behauptet keine Beziehungen zwischen Themen. Die Datei wird bei Bedarf automatisch erzeugt und ist durch `.gitignore` vom Repository ausgeschlossen. Skripte, Chatverlauf und Schlüssel werden dort nicht gespeichert. Im statischen Modus ohne Bridge liegt der Lernstand separat im Browser; eine automatische Synchronisierung findet nicht statt. Browserdaten und lokale Datenbank können verloren gehen: selbst sichern, wenn benötigt.
+Beim Start über die Bridge werden explizit gespeicherte Lernstände und Bewertungen nach Projekt getrennt in `memory/memory.db` abgelegt – auch wenn der Modus ohne KI ausgewählt ist. Die Memory-Grafik gruppiert deine gespeicherten Themen nach Status; sie behauptet keine Beziehungen zwischen Themen. Die Datei wird bei Bedarf automatisch erzeugt und ist durch `.gitignore` vom Repository ausgeschlossen. Skripte, Chatverlauf und Schlüssel werden dort nicht gespeichert. Im statischen Modus ohne Bridge liegt der Lernstand separat im Browser; eine automatische Synchronisierung findet nicht statt. Browserdaten und lokale Datenbank können verloren gehen: selbst sichern, wenn benötigt.
 
 Das Zahnrad oben rechts öffnet die Einstellungen mit Modellauswahl, Dark Mode, Memory-Grafik und Trinity-Dateien. Der Entwicklungsverlauf erfasst Lernstandsänderungen ab Einführung dieser Funktion; ältere Änderungen lassen sich nicht rückwirkend rekonstruieren.
 
@@ -103,7 +107,9 @@ Die README erklärt das Projekt und zeigt seine Oberfläche. **Der Tutor selbst 
 
 ## GitHub Pages / Demonstration
 
-`index.html` und `enhancements.js` können auch statisch auf GitHub Pages liegen: Dort funktionieren der vorbereitete Übungsdialog und Lernstand im Browser. Hochgeladene Unterlagen werden im Übungsmodus nicht analysiert. Modellanfragen, Datei-Inspektor, SQLite und Feedback benötigen die lokale Bridge; GitHub Pages führt kein Python aus. Keine Zugangsschlüssel im Repository hinterlegen.
+Die [Online-Version](https://leonietroblgomez.github.io/sokratischer-tutor-agent/) läuft ohne Backend. Ihre einfache Wortsuche zeigt mögliche Fundstellen im hochgeladenen Text; sie ist keine KI und kann Inhalte oder Antworten nicht fachlich beurteilen. Fächer und Lernstand liegen ausschließlich im Browser des jeweiligen Geräts und können beim Löschen von Browserdaten verloren gehen. Hochgeladene Skripte bleiben während der Sitzung im Browser und müssen später erneut ausgewählt werden.
+
+Modellanfragen, SQLite, Feedback und der Datei-Inspektor benötigen die lokale Bridge; GitHub Pages führt kein Python aus. Wer KI verwenden möchte, startet die lokale Version und nutzt einen eigenen Zugang. Zugangsschlüssel dürfen nicht im Repository hinterlegt werden.
 
 ## Tests
 
