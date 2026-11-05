@@ -1,9 +1,5 @@
 # Sokratischer Vorlesungs- und Klausur-Tutor
 
-**[→ KI-Lernwerkstatt als Progressive Web App öffnen](https://leonietroblgomez.github.io/ki-lernwerkstatt-pwa/)**
-
-Die KI-Lernwerkstatt ist meine separate Lern-App für BWL und KI; der sokratische Tutor wird unten beschrieben.
-
 Ein eigenständiges Lernprojekt nach der [Trinity-Architekturreferenz](https://profengel.github.io/KI-Literacy/trinity-agenten.html): Rollenregeln, Projektkonventionen, Ablauf, Ausgabeschema, deterministische Werkzeuge und lokales SQLite-Gedächtnis sind getrennt. Der Tutor hilft mit Fragen und Hinweisen statt sofortiger Musterlösungen.
 
 ## Was macht der Tutor?
